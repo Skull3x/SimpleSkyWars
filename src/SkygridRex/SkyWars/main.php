@@ -134,23 +134,17 @@ class Main extends PluginBase implements Listener
   public function onBlockBreak(BlockBreakEvent $event){
     if($event->getPlayer()->getLevel()->getName() == $cfg->get('lobby') and !$event->getPlayer()->hasPermission("skywars.breakblocks")){
       $event->setCancelled(); 
-      $event->getPlayer()->sendMessage("You are not allowed to break blocks.");
-    }
   }
 	
   public function onBlockPlace(BlockPlaceEvent $event){
     if($event->getPlayer()->getLevel()->getName() == $cfg->get('lobby') and !$event->getPlayer()->hasPermission("skywars.placeblocks")){
       $event->setCancelled();
-      $event->getPlayer()->sendMessage("You sre not allowed to place blocks.");
-    }
   }
   
   public function onHurt(EntityDamageEvent $event){
     if(!($event instanceof EntityDamageByEntityEvent) or !($event->getDamager() instanceof Player)) return;
       if($event->getEntity()->getLevel()->getName() == $cfg->get('lobby')){
         $event->setCancelled(true); 
-        $event->getDamager()->sendMessage("You cannot hurt players in the lobby.");
-      }
     }
   }
   
