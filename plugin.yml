@@ -1,9 +1,8 @@
 name: SkyWars
 version: 2.0.0
 api: 1.14.0
-
 main: mcg76\skywars\SkyWarsPlugIn
-author: SkygridRex
+author: SkygridRex, TheKillerTacos
 description: SkygridRex SkyWars mini-game
 commands:
  skw:
@@ -13,3 +12,4 @@ permissions:
  mcg76.plugin.skywars:
   description: "mc.plugin.skywars"
   default: op
+#Ill be fixing Permissions, since seem to be badly configured! - TheKillerTacos
