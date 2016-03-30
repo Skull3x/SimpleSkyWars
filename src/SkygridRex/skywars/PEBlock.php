@@ -1,20 +1,10 @@
 <?php
 
-namespace mcg76\skywars;
+namespace SkygridRex\skywars;
 
 use pocketmine\block\Block;
 use pocketmine\item\ItemBlock;
 use pocketmine\item\Item;
-
-/**
- * MCG76 PEBlock
- *
- * Copyright (C) 2014 minecraftgenius76
- * YouTube Channel: http://www.youtube.com/user/minecraftgenius76
- *
- @author minecraftgenius76@gmail.com
- *        
- */
 
 class PEBlock {
 	
