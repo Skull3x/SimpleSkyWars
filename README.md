@@ -13,7 +13,9 @@ That and more features coming!
 
 ###TODO
 
-- [ ] World Reset - Reset world to normal Stage
-- [ ] World Generator - Generate World with islands
+- [ ] World Reset - Reset world to normal Stage.
+- [ ] World Generator - Generate World with islands.
 - [ ] IDK, more features?
 - [ ] MultiLanguage support - That would be easy! I guess?
+
+Original plugin by MinecraftGenius76
