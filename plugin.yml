@@ -3,7 +3,7 @@ version: 2.0.0
 api: 1.14.0
 main: SkygridRex\skywars\SkyWarsPlugIn
 author: SkygridRex, TheKillerTacos
-description: SkygridRex SkyWars mini-game
+description: "SkyWars mini-game developed by FastTweak Team"
 commands:
  skw:
   description: "SkyWars mini-game"
