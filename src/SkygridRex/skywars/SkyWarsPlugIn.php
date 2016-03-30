@@ -107,7 +107,7 @@ class SkyWarsPlugIn extends PluginBase implements CommandExecutor {
 		$this->getServer ()->getPluginManager ()->registerEvents ( new SkyWarsListener ( $this ), $this );
 						
 		$this->enabled = true;
-		$this->log ( TextFormat::GREEN . "- mcg76_SkyWars_Minigame - Enabled!" );
+		$this->log ( TextFormat::GREEN . "- FastTweak Skywars Enabled!" );
 		
 // 		//preload worlds
 		$skywarsbaseworld = $this->getConfig()->get("skywars_base_world");
@@ -132,7 +132,7 @@ class SkyWarsPlugIn extends PluginBase implements CommandExecutor {
 	 * @see \pocketmine\plugin\PluginBase::onDisable()
 	 */
 	public function onDisable() {
-		$this->log ( TextFormat::RED . "mcg76_SkyWars - Disabled" );
+		$this->log ( TextFormat::RED . "FastTweak Skywars - Disabled" );
 		$this->enabled = false;
 	}
 	
