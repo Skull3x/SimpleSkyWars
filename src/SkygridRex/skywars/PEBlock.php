@@ -38,8 +38,11 @@ class PEBlock {
 		$this->list ["GLASS"] = 20;
 		$this->list ["LAPIS_ORE"] = 21;
 		$this->list ["LAPIS_BLOCK"] = 22;
+		$this->list ["DISPENSER"] = 23; //May not work with all Servers (PM,GEN,IM,CS, etc)
 		$this->list ["SANDSTONE"] = 24;
-		$this->list ["BED_BLOCK"] = 26;
+		$this->list ["NOTE_BLOCK"] = 25; //May not work with all Servers (PM,GEN,IM,CS, etc)
+		$this->list ["POWERED_RAIL"] = 27; 
+		$this->list ["DETECTOR_RAIL"] = 28; //May not work with all Servers (PM,GEN,IM,CS, etc)
 		$this->list ["COBWEB"] = 30;
 		$this->list ["TALL_GRASS"] = 31;
 		$this->list ["DEAD_BUSH"] = 32;
@@ -129,6 +132,8 @@ class PEBlock {
 		
 		$this->list ["END_PORTAL"] = 120;
 		$this->list ["END_STONE"] = 121;
+		$this->list ["REDSTONE_LAMP"] = 123;
+		$this->list ["ACTIVATOR_RAIL"] = 126;
 		$this->list ["SANDSTONE_STAIRS"] = 128;
 		$this->list ["EMERALD_ORE"] = 129;
 		
@@ -171,7 +176,7 @@ class PEBlock {
 		$this->list ["PODZOL"] = 243;
 		$this->list ["BEETROOT"] = 244;
 		$this->list ["BEETROOT_BLOCK"] = 244;
-		$this->list ["STONECUTTER"] = 245;
+		$this->list ["STONECUTTER"] = 245; //Soon This will be deprecated
 		$this->list ["GLOWING_OBSIDIAN"] = 246;
 		$this->list ["NETHER_REACTOR"] = 247;
 	}
