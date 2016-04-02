@@ -16,7 +16,7 @@ class SkyBlockGenerator extends Generator{
 	const bedrockheight = 30;
 	/**
 	 *
-	 * @var GenerationChunkManager
+	 * @var ChunkManager
 	 */
 	private $level;
 	/**
