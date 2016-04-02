@@ -16,11 +16,11 @@ use pocketmine\level\generator\populator\Ore;
 use pocketmine\level\generator\populator\Populator;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
-use pocketmine\level\generator\GenerationChunkManager;
+use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\Generator;
 
 class SuperFlat extends Generator{
-	/** @var  GenerationChunkManager */
+	/** @var  ChunkManager */
 	private $level;
 	/** @var FullChunk */
 	private $chunk;
@@ -118,7 +118,7 @@ class SuperFlat extends Generator{
 		}
 	}
 
-	public function init(GenerationChunkManager $level, Random $random){
+	public function init(ChunkManager $level, Random $random){
 		$this->level = $level;
 		$this->random = $random;
 
