@@ -11,7 +11,7 @@ use pocketmine\Server;
 use pocketmine\utils\Config;
 use pocketmine\level\Position;
 use pocketmine\level\format\anvil\Anvil;
-use pocketmine\level\generator\GenerationChunkManager;
+use pocketmine\level\ChunkManager;
 use pocketmine\level\format\LevelProviderManager;
 use pocketmine\level\format\mcregion\McRegion;
 use pocketmine\level\generator\Flat;
@@ -89,14 +89,14 @@ class SkyWarsCommand {
 			// $this->log ( $command->getName () . " " . count ( $args ) . " " . $args [0] );
 			
 			if (strtolower ( $args [0] ) == "help") {
-				$sender->sendMessage ( TextFormat::BLUE . "skywars | skw [Commands]" );
-				$sender->sendMessage ( TextFormat::BLUE . "-----------------------" );
-				$sender->sendMessage ( TextFormat::BLUE . "/skw lobby -go to lobby" );
-				$sender->sendMessage ( TextFormat::BLUE . "/skw blockon - turn dipslay block on" );
-				$sender->sendMessage ( TextFormat::BLUE . "/skw blockff - turn display block off" );				
-				$sender->sendMessage ( TextFormat::BLUE . "/skw tp [world name] - teleport to another world" );
-				$sender->sendMessage ( TextFormat::BLUE . "/skw display help" );
-				$sender->sendMessage ( TextFormat::BLUE . "----------------------" );
+				$sender->sendMessage ( TextFormat::GREEN . "skywars | skw [Commands]" );
+				$sender->sendMessage ( TextFormat::GREEN . "-----------------------" );
+				$sender->sendMessage ( TextFormat::GREEN . "/skw lobby -go to lobby" );
+				$sender->sendMessage ( TextFormat::GREEN. "/skw blockon - turn dipslay block on" );
+				$sender->sendMessage ( TextFormat::GREEN . "/skw blockff - turn display block off" );				
+				$sender->sendMessage ( TextFormat::GREEN . "/skw tp [world name] - teleport to another world" );
+				$sender->sendMessage ( TextFormat::GREEN . "/skw display help" );
+				$sender->sendMessage ( TextFormat::GREEN . "----------------------" );
 				return true;
 			}
 			
@@ -107,12 +107,12 @@ class SkyWarsCommand {
 			
 			if (strtolower ( $args [0] ) == "blockon") {
 				$this->pgin->pos_display_flag = 1;
-				$sender->sendMessage ( "block location display ON ");
+				$sender->sendPopup ( "block location display ON ");
 				return true;
 			}
 			if (strtolower ( $args [0] ) == "blockoff") {
 				$this->pgin->pos_display_flag = 0;
-				$sender->sendMessage ( "block location display OFF ");
+				$sender->sendPopup ( "block location display OFF ");
 				return true;
 			}
 			
@@ -130,45 +130,45 @@ class SkyWarsCommand {
 						
 			if (strtolower ( $args [0] ) == "tp" || strtolower ( $args [0] ) == "teleport") {
 				if (! $sender->isOp ()) {
-					$sender->sendMessage ( TextFormat::BLUE . "You are not authorized to use this command. please contact server administrator [op]." );
+					$sender->sendPopup ( TextFormat::RED . "You are not authorized to use this command. please contact server administrator [op]." );
 					return;
 				}
 				if (! isset ( $args [1] )) {
-					$sender->sendMessage ( TextFormat::BLUE . "Usage: skyblock [tp] [play world name]" );
+					$sender->sendMessage ( TextFormat::YELLOW . "Usage: skyblock [tp] [play world name]" );
 					return;
 				}
 				$worldname = $args [1];
-				$sender->sendMessage ( TextFormat::BLUE . "skyblock [tp] " . $worldname );
+				$sender->sendMessage ( TextFormat::YELLOW . "skyblock [tp] " . $worldname );
 				$this->teleportWorld ( $sender, $worldname );
 				return true;
 			}
 
-			$sender->sendMessage ( TextFormat::BLUE . "skywars mini-game version 1.00" );
-			$sender->sendMessage ( TextFormat::BLUE . "-----------------------" );
-			$sender->sendMessage ( TextFormat::BLUE . "created by" );
-			$sender->sendMessage ( TextFormat::BLUE . "minecraftgenius76" );
-			$sender->sendMessage ( TextFormat::BLUE . "----------------------" );			
+			$sender->sendMessage ( TextFormat::DARK_RED . "skywars mini-game version 1.0.0" );
+			$sender->sendMessage ( TextFormat::DARK_RED . "-----------------------" );
+			$sender->sendMessage ( TextFormat::DARK_RED . "created by" );
+			$sender->sendMessage ( TextFormat::DARK_RED . "FastTweak Team" );
+			$sender->sendMessage ( TextFormat::DARK_RED . "----------------------" );			
 		}
 	}
 	public function sharePlayworld($sender, $worldname, $enabled) {
 		$map = null;
 		$player = $sender->getPlayer ();
 		if (! isset ( $this->pgin->maps [$worldname] )) {
-			$sender->sendMessage ( TextFormat::BLUE . "playworld [" . $worldname . "] doesn't exist!" );
+			$sender->sendPopup ( TextFormat::RED . "playworld [" . $worldname . "] doesn't exist!" );
 			return;
 		}
 		$map = $this->pgin->maps [$worldname];
 		// @todo only owner can make change
-		$sender->sendMessage ( TextFormat::BLUE . "owner name: " . $map->ownerName . " sender:" . $sender->getName () );
+		$sender->sendMessage ( TextFormat::YELLOW . "owner name: " . $map->ownerName . " sender:" . $sender->getName () );
 		if ($map->ownerName != $sender->getName ()) {
-			$sender->sendMessage ( TextFormat::BLUE . "Unauthorized action, only play owner allow change sharing option." );
+			$sender->sendPopup ( TextFormat::RED . "Unauthorized action, only play owner allow change sharing option." );
 			return;
 		}
 		$map->shared = $enabled;
 		$map->delete ();
 		$map->save ();
 		
-		$sender->sendMessage ( TextFormat::BLUE . "playworld [" . $worldname . "] done!" );
+		$sender->sendMessage ( TextFormat::YELLOW . "playworld [" . $worldname . "] done!" );
 	}
 	
 	/**
@@ -179,25 +179,25 @@ class SkyWarsCommand {
 	 */
 	public function getWorldSpawnLocation(CommandSender $sender, $levelname) {
 		if ($levelname == null) {
-			$sender->sendMessage ( "Warning, no world name specified!" );
+			$sender->sendPopup ( "Warning, no world name specified!" );
 			return;
 		}
 		
 		if (! $sender->getServer ()->isLevelLoaded ( $levelname )) {
 			$ret = $sender->getServer ()->loadLevel ( $levelname );
 			if (! $ret) {
-				$sender->sendMessage ( "Error, unable load World: " . $levelname . ". please contact server administrator." );
+				$sender->sendPopup ( "Error, unable load World: " . $levelname . ". please contact server administrator." );
 				return;
 			}
 		}
 		if (! $sender->getServer ()->isLevelGenerated ( $levelname )) {
-			$sender->sendMessage ( $levelname . " - world generation still running, not ready yet! try later." );
+			$sender->sendPopup ( $levelname . " - world generation still running, try later." );
 			return;
 		}
 		
 		$level = $sender->getServer ()->getLevelByName ( $levelname );
 		if ($level == null) {
-			$sender->sendMessage ( "Error, unable access world: " . $levelname . ". please contact server administrator." );
+			$sender->sendPopup ( "Error, unable access world: " . $levelname . ". please contact server administrator." );
 			return;
 		}
 		// position
@@ -215,7 +215,7 @@ class SkyWarsCommand {
 	 */
 	public function setWorldSpawnLocation(CommandSender $sender, $levelname) {
 		if ($levelname == null) {
-			$sender->sendMessage ( "Warning, no world name specified!" );
+			$sender->sendPopup ( "Warning, no world name specified!" );
 			return;
 		}
 		// position
@@ -226,7 +226,7 @@ class SkyWarsCommand {
 		if (! $sender->getServer ()->isLevelLoaded ( $levelname )) {
 			$ret = $sender->getServer ()->loadLevel ( $levelname );
 			if (! $ret) {
-				$sender->sendMessage ( "Error, unable load World: " . $levelname . ". please contact server administrator." );
+				$sender->sendPopup ( "Error, unable load World: " . $levelname . ". please contact server administrator." );
 				return;
 			}
 		}
@@ -237,7 +237,7 @@ class SkyWarsCommand {
 		
 		$level = $sender->getServer ()->getLevelByName ( $levelname );
 		if ($level == null) {
-			$sender->sendMessage ( "Error, unable access world: " . $levelname . ". please contact server administrator." );
+			$sender->sendPopup ( "Error, unable access world: " . $levelname . ". please contact server administrator." );
 			return;
 		}
 		
@@ -277,7 +277,7 @@ class SkyWarsCommand {
 	 */
 	public function loadWorld(CommandSender $sender, $levelname) {
 		if ($levelname == null) {
-			$sender->sendMessage ( "Warning, no world name specified!" );
+			$sender->sendPopup ( "Warning, no world name specified!" );
 			return;
 		}
 		// $sender->sendMessage("=SIMPLE WORLDS=");
@@ -285,16 +285,16 @@ class SkyWarsCommand {
 		if (! $sender->getServer ()->isLevelLoaded ( $levelname )) {
 			$ret = $sender->getServer ()->loadLevel ( $levelname );
 			if ($ret) {
-				$sender->sendMessage ( "world loaded! " );
+				$sender->sendPopup ( "world loaded! " );
 			} else {
-				$sender->sendMessage ( "Error, unable load World: " . $levelname . " contact server administrator." );
+				$sender->sendPopup ( "Error, unable load World: " . $levelname . " contact server administrator." );
 			}
 		}
 		$this->listWorld ( $sender );
 	}
 	// public function unloadWorld(CommandSender $sender, $levelname) {
 	// if ($levelname == null) {
-	// $sender->sendMessage ( "Warning, no world name specified!" );
+	// $sender->sendPopup ( "Warning, no world name specified!" );
 	// return;
 	// }
 	// // $sender->sendMessage("=SIMPLE WORLDS=");
@@ -302,14 +302,14 @@ class SkyWarsCommand {
 	// if ($sender->getServer ()->isLevelLoaded ( $levelname )) {
 	// $level = $sender->getServer ()->getLevelByName ( $levelname );
 	// if ($level == null) {
-	// $sender->sendMessage ( "Error, unable access world: " . $levelname . ". please contact server administrator." );
+	// $sender->sendPopup ( "Error, unable access world: " . $levelname . ". please contact server administrator." );
 	// return;
 	// }
 	// $ret = $sender->getServer ()->unloadLevel ( $level );
 	// if ($ret) {
 	// $sender->sendMessage ( "world unloaded! " );
 	// } else {
-	// $sender->sendMessage ( "Error, unable unload World: " . $levelname . ". please contact server administrator." );
+	// $sender->sendPopup ( "Error, unable unload World: " . $levelname . ". please contact server administrator." );
 	// }
 	// }
 	// $this->listWorld ( $sender );
@@ -318,7 +318,7 @@ class SkyWarsCommand {
 		// check if level exist
 		$level = Server::getInstance ()->getLevelByName ( $worldname );
 		if ($level == null) {
-			$this->log ( TextFormat::BLUE . "Error: Skywars World [" . $worldname . "] doesn't exist!" );
+			$this->log ( TextFormat::RED . "Error: Skywars World [" . $worldname . "] doesn't exist!" );
 			return;
 		}
 		// unload level
@@ -329,14 +329,14 @@ class SkyWarsCommand {
 		// rmdir($levelpath);
 		$fileutil = new FileUtil ();
 		$fileutil->unlinkRecursive ( $levelpath, true );
-		$this->log ( TextFormat::BLUE . "Skywars play world [" . $worldname . "] deleted!" );
+		$this->log ( TextFormat::GREEN . "Skywars play world [" . $worldname . "] deleted!" );
 	}
 	public function joinWorld(CommandSender $sender, $worldname) {
 		// load level
 		$sender->getServer ()->loadLevel ( $worldname );
 		$level = $sender->getServer ()->getLevelByName ( $worldname );
 		if ($level == null) {
-			$sender->sendMessage ( TextFormat::BLUE . "Error: skyplay world [" . $worldname . "] doesn't exist!" );
+			$sender->sendMessage ( TextFormat::RED . "Error: skyplay world [" . $worldname . "] doesn't exist!" );
 			return;
 		}
 		$map = null;
@@ -389,24 +389,24 @@ class SkyWarsCommand {
 		$this->pgin->skyplayers [$player->getName ()] = $map;
 	}
 	public function gotolobby(CommandSender $sender) {
-		// $sender->sendMessage ( TextFormat::BLUE . "skb [lobby]" );
+		// $sender->sendMessage ( TextFormat::YELLOW . "skb [lobby]" );
 		$sx = $this->pgin->getConfig ()->get ( "skywars_lobby_x" );
 		$sy = $this->pgin->getConfig ()->get ( "skywars_lobby_y" );
 		$sz = $this->pgin->getConfig ()->get ( "skywars_lobby_z" );
 		$levelname = $this->pgin->getConfig ()->get ( "skywars_lobby_world" );
 		
 		if ($sx == null || $sy == null || $sz == null) {
-			$sender->sendMessage ( TextFormat::BLUE . "missing skyblock lobby info. please check configuation file!" );
+			$sender->sendMessage ( TextFormat::RED . "missing skyblock lobby info. please check configuation file!" );
 			return;
 		}
 		if (! $sender instanceof Player) {
-			$sender->sendMessage ( TextFormat::BLUE . "this command is for in-game use only!" );
+			$sender->sendMessage ( TextFormat::RED . "this command is for in-game use only!" );
 			return;
 		}
 		// load world
 		$this->teleportWorld ( $sender, $levelname );
 		
-		//$sender->sendMessage ( TextFormat::BLUE . "return to Lobby at [".$sx." " .$sy." ".$sz."]");
+		//$sender->sendMessage ( TextFormat::GREEN . "return to Lobby at [".$sx." " .$sy." ".$sz."]");
 		$sender->getPlayer ()->teleport ( new Vector3 ( $sx, $sy, $sz ) );
 		
 		// Reverse player clicked green button
