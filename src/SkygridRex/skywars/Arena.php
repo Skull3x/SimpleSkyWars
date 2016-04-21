@@ -137,9 +137,9 @@ class Arena {
 				$plugin->getLogger()->info($xname);
 				// load levels
 				Server::getInstance ()->loadLevel ( $xname );
-				if (($pLevel = Server::getInstance ()->getLevelByName ( $xname )) === null)
-					continue;
-				
+				if (($pLevel = Server::getInstance ()->getLevelByName ( $xname )) === null){
+				continue;
+				}
 				$name = str_replace ( ".yml", "", $filename );
 				
 				$spawnLocation = null;
