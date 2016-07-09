@@ -15,7 +15,7 @@ class Arena {
 	public $pos1;
 	public $pos2;
 	// #PLUGIN
-	public $pgin;
+	public $plugin;
 	// #ARENA NAME - World Name
 	public $name;
 	public $description;
