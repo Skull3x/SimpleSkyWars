@@ -138,7 +138,7 @@ class Arena {
 				// load levels
 				Server::getInstance ()->loadLevel ( $xname );
 				if (($pLevel = Server::getInstance ()->getLevelByName ( $xname )) === null){
-					$this->getLogger()->notice(FormatColor::GOLD . "The Arena  name" . $xname . "Does not exist, please Place a map named like that")
+					$this->getLogger()->notice(FormatColor::GOLD . "The Arena  name" . $xname . "Does not exist, please Place a map named like that");
 				// Temporal Fix for Issue #4
 				}
 				$name = str_replace ( ".yml", "", $filename );
